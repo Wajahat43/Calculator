@@ -1,0 +1,37 @@
+.calcContainer{
+    margin: 5% 15% 30% 15% ;
+    background-color: darkgray;
+    padding: 2% 2% 2% 2%;
+    background-color: cadetblue;
+}
+.buttonContainer{
+    display: grid;
+    grid-template-columns:repeat(4, 1fr);
+    column-gap: 10px;
+    row-gap: 10px;
+    /* grid-template-areas: "ac ac ac division "
+                          "8 8 9 mutitply"
+                          "4 5 6 subtract"
+                          "1 2 3 add"
+                          "zero dot equals" */
+}
+
+.calcDisplay{
+    padding: 10px 10px 10px 10px;
+    background-color: darksalmon;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+.calcDisplay > p{
+    text-align: right;
+
+}
+
+
+#clear{
+    grid-column: 1 /span 2;
+}
+
+#equals{
+    grid-column: 3 /span 2;
+}
