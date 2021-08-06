@@ -1,4 +1,4 @@
-let displayVal, operand1=null, operand2=null, currOperand = null, operator=null,result=null;
+let displayVal="", operand1=null, operand2=null, currOperand = null, operator=null,result=null;
 
 
 function add(op1, op2){
@@ -21,11 +21,11 @@ function subtract(op1,op2){
 }
 
 function operate(op1, op2, operator){
-    if(operator === "additon"){
+    if(operator === "addition"){
         return add(op1,op2);
     } else if(operator === "subtraction"){
         return subtract(op1,op2);
-    } else if(operator === "mutiplication"){
+    } else if(operator === "multiplication"){
         return multiply(op1,op2);
     } else if(operator === "division"){
         return divide(op1,op2);
@@ -34,7 +34,11 @@ function operate(op1, op2, operator){
 
 function changeDispVal(){
     let inputStr = document.querySelector("#inputString");
-    inputStr.textContent = displayVal;
+    if(displayVal === "")
+        inputStr.textContent= 0;
+    else{
+        inputStr.textContent = displayVal;
+    }
 }
 
 let buttonPar = document.querySelector(".buttonContainer");
@@ -43,19 +47,38 @@ buttonPar.addEventListener('click', function(event){
 });
 
 function handleClick(id){
+    removeErrorMessage();
     if(isOperator( String(id) ) ){
-        if(currOperand ===0){
-            operand11 = result;
-        } else{
-            operand1 = currOperand;
+        if(operand1 === null && result != null){
+                operand1 = result;
+                operator = id;
+                addDispValOperator(String(id));
+                displayVal = result;
+                addDispValOperator(id);
+                changeDispVal();
+               result = null;
+               changeResultVal();
+            }
+        else if(operand1 != null){
+            operator = id;
+            addDispValOperator(String(id));
+        }   
+        else{
+            giveError("You need to give value of operand before selecting operator");
         }
-        operator = id;
+        // if()
+        // if(currOperand === null){
+        //     operand1 = result;
+        // } else{
+        //     operand1 = currOperand;
+        // }
+        
     }  
     
     else if(isSpecialButton(id)){
         handleSpecialButton(id);
-    } else if(isOperand()){
-        handleOperand();
+    } else {
+        handleOperand(id);
     }
 
 
@@ -63,7 +86,7 @@ function handleClick(id){
 
 
 function isOperator(id){
-    if(id==="addition" || id === "mutiplication" || id ==="division" || id ==="subtraction" || id ==="modulus"){
+    if(id==="addition" || id === "multiplication" || id ==="division" || id ==="subtraction" || id ==="modulus"){
         return true;
     }  
     else{
@@ -82,25 +105,28 @@ function isSpecialButton(id){
 
 function handleSpecialButton(id){
     if(id ==="clear"){
-        displayVal = 0;
+        displayVal = "";
         changeDispVal();
-        operator = "";
-        result = 0;
+        operator = null;
+        result = null;
         changeResultVal();
-        currOperand = 0;
-        operand1 = 0;
-        operand2 = 0;
+        currOperand = null;
+        operand1 = null;
+        operand2 = null;
     } else if(id === "back"){
         handleBackOperation();
     } else if(id === "equals"){
-        if(operand1 != null && operand22 != null && operator != null){
+        if(operand1 != null && operand2 != null && operator != null){
             result = operate(operand1,operand2,operator);
-            changeResultVal;
+            changeResultVal();
+             operand1 =null;
+             operand2 = null;
+             operator= null;
         }
         else{
-            let errorMsg = document.querySelector(".errorMessage");
-            errorMsg.textContent = "You need to enter a valid expression to evaluate it.";
-            erroMsg.style.display= "block"
+            
+            giveError("You need to enter a valid expression to evaluate it.")
+            
         }
          
     }
@@ -109,5 +135,60 @@ function handleSpecialButton(id){
 
 function changeResultVal(){
     let myResult = document.querySelector("#result");
-    myResult.textContent = result;
+    if(result ===null)
+        myResult.textContent = 0;
+    else
+        myResult.textContent = result;    
 }
+
+function handleOperand(id){
+
+    if(operator === null){
+        if(operand1 === null){
+            operand1 = parseInt(id);
+        } else{
+            operand1 = operand1*10;
+            operand1 += parseInt(id);
+        }
+        displayVal += id;
+        changeDispVal();
+    } else{
+        if(operand2 === null){
+            operand2= (parseInt(id));
+        } else{
+            operand2 *= 10;
+            operand2 +=parseInt(id);
+        }
+        displayVal += id;
+        changeDispVal();
+    }
+}
+
+function giveError(string){
+    let errorMsg = document.querySelector(".errorMessage");
+    errorMsg.textContent = string;
+    errorMsg.style.display= "block"
+}
+
+function removeErrorMessage(){
+    let errorMsg = document.querySelector(".errorMessage");
+    //errorMsg.textContent = "";
+    errorMsg.style.display="none";
+}
+
+function addDispValOperator(operator1){
+    if(operator1 === "addition"){
+        displayVal += "+";
+        changeDispVal();
+    } else if(operator1 === "subtraction"){
+        displayVal += "-";
+        changeDispVal();
+    } else if(operator1 === "multiplication"){
+        displayVal += "*";
+        changeDispVal();    
+    } else if(operator1 === "division"){
+        displayVal += "/";
+        changeDispVal();
+    }
+}
+
