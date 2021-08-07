@@ -1,8 +1,11 @@
 .calcContainer{
-    margin: 5% 15% 30% 15% ;
+    margin: 10% auto;
     background-color: darkgray;
     padding: 2% 2% 2% 2%;
     background-color: cadetblue;
+    width: 500px;
+    height: 300px;
+    
 }
 .buttonContainer{
     display: grid;
@@ -17,10 +20,13 @@
 }
 
 .calcDisplay{
-    padding: 10px 10px 10px 10px;
+    display: grid;
+    padding: 5px 20px 5px 20px;
     background-color: darksalmon;
     border-radius: 20px;
     margin-bottom: 20px;
+    grid-template-columns: repeat(2 1fr);
+    grid-template-rows: repeat(2 1fr);
 }
 .calcDisplay > p{
     text-align: right;
@@ -35,3 +41,19 @@
 #equals{
     grid-column: 3 /span 2;
 }
+
+.expressionContainer{
+    display: flex;
+    justify-content: space-between;
+}
+.resultContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* #expressionMsg #result{
+    float: left;
+}
+#inputString{
+    float: right;
+} */

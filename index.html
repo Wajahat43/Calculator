@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-        <title>Calculator</title>
-        <link rel="stylesheet" href="style.css">
-        <script src="myScript.js" defer></script>
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="myScript.js" defer></script>
 </head>
 
 <body>
@@ -11,8 +12,18 @@
     <div class="calcContainer">
 
         <div class="calcDisplay">
-            <p id="inputString">0</p>
-            <p id="result">0</p>
+
+            <div class="expressionContainer">
+                <p id="expressionMsg">Expression</p>
+                <p id="inputString">0</p>
+            </div>
+            <div class="resultContainer">
+                <p id="resultMsg">Result</p>
+                <p id="result">0</p>
+            </div>
+
+
+
         </div>
         <div class="buttonContainer">
             <button id="clear">CLR</button>
@@ -25,20 +36,20 @@
             <button id="4">4</button>
             <button id="5">5</button>
             <button id="6">6</button>
-            <button id = "addition"> + </button>
+            <button id="addition"> + </button>
             <button id="1">1</button>
             <button id="2">2</button>
             <button id="3">3</button>
-            <button id = subtraction> - </button>
+            <button id=subtraction> - </button>
             <button id="0">0</button>
-            <button id = "decimal">.</button>
+            <button id="decimal">.</button>
             <button id="equals"> = </button>
-           
+
         </div>
 
     </div>
     <div class="errorMessage"></div>
-    
+
 </body>
 
 </html>
