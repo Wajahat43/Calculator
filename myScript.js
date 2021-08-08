@@ -3,6 +3,7 @@ let displayVal = "",
     operand2 = null,
     currOperand = null,
     operator = null,
+    decimalDivisor = 1;
     decimalAllowed = true;
     result = null;
     
@@ -42,14 +43,13 @@ function operate(op1, op2, operator) {
 function evalute() {
     if (operand1 != null && operand2 != null && operator != null) {
         result = operate(operand1, operand2, operator);
+       // result = parseFloat(result).toFixed(2);
         changeResultVal();
         operand1 = null;
         operand2 = null;
         operator = null;
     } else {
-
         giveError("You need to enter a valid expression to evaluate it.")
-
     }
 
 }
@@ -64,8 +64,10 @@ buttonPar.addEventListener('click', function (event) {
 
 function handleClick(id) {
     removeErrorMessage();
+    
     if (isOperator(String(id))) {
-
+        decimalAllowed = true;
+        decimalDivisor = 1;
         handleOperator(id);
     } else if (isSpecialButton(id)) {
         handleSpecialButton(id);
@@ -78,8 +80,14 @@ function changeResultVal() {
     let myResult = document.querySelector("#result");
     if (result === null)
         myResult.textContent = 0;
-    else
-        myResult.textContent = result;
+    else{
+        if(Number.isInteger(result)){
+            myResult.textContent = result;
+        } else{
+            myResult.textContent = result.toFixed(2);
+        }
+    }
+        
 }
 
 function changeDispVal() {
@@ -142,21 +150,44 @@ function handleOperand(id) {
     if(result != null && operator === null){
         clearEverything();
     }
+    if(decimalAllowed===false){
+        decimalDivisor *= 10;
+    }
     if (operator === null) {
         if (operand1 === null) {
-            operand1 = parseInt(id);
+            if(decimalAllowed===false){
+                operand1 = parseInt(id)/(decimalDivisor);
+            }    
+            else{
+                operand1 = parseInt(id);   
+            }   
+            
         } else {
-            operand1 = operand1 * 10;
-            operand1 += parseInt(id);
+            if(decimalAllowed===false){
+                operand1 += parseInt(id)/(decimalDivisor);
+            } else{
+                operand1 = operand1 * 10;
+                operand1 += parseInt(id);
+            }
+          
         }
         displayVal += id;
         changeDispVal();
     } else {
         if (operand2 === null) {
-            operand2 = (parseInt(id));
+            if(decimalAllowed===false){
+                operand2 = parseInt(id)/(decimalDivisor);
+            } else{
+                operand2 = (parseInt(id));
+            }
+            
         } else {
+            if(decimalAllowed===false){
+                operand2 += parseInt(id)/(decimalDivisor);
+            }
+            else{   
             operand2 *= 10;
-            operand2 += parseInt(id);
+            operand2 += parseInt(id)};
         }
         displayVal += id;
         changeDispVal();
@@ -199,6 +230,8 @@ function handleBackOperation(){
     let myChar = displayVal.charAt(displayVal.length-1);
     if(isOperator(myChar)){
         operator = null;
+    } else if(myChar==='.'){
+        decimalAllowed = true;
     }
     else{
         if(operator === null && operand1>10){
@@ -221,15 +254,15 @@ function handleBackOperation(){
 }
 
 function handleDecimal(){
+    if(result != null && operator === null){
+        clearEverything();
+    }
     if(decimalAllowed===false){
         return;
     } 
-    if(operator === null){
-        operand1 = operand1+0.0;
-        decimalAllowed = false;
-        displayVal += ".";
-        changeDispVal();
-    }
+    decimalAllowed = false;
+    displayVal += ".";
+    changeDispVal();
 }
 
 function giveError(string) {
@@ -253,4 +286,6 @@ function clearEverything(){
     currOperand = null;
     operand1 = null;
     operand2 = null;
+    decimalAllowed = true;
+    decimalDivisor = 1;
 }

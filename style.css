@@ -1,10 +1,20 @@
+body{
+    background-color: #fcb439;
+}
+
+h1{
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 0px;
+}
+
 .calcContainer{
-    margin: 10% auto;
-    background-color: darkgray;
+    margin: 1% auto;
+    background-color: #212121;
     padding: 2% 2% 2% 2%;
-    background-color: cadetblue;
-    width: 500px;
-    height: 300px;
+    width: 30%;
+    border-radius: 11px;
     
 }
 .buttonContainer{
@@ -12,25 +22,22 @@
     grid-template-columns:repeat(4, 1fr);
     column-gap: 10px;
     row-gap: 10px;
-    /* grid-template-areas: "ac ac ac division "
-                          "8 8 9 mutitply"
-                          "4 5 6 subtract"
-                          "1 2 3 add"
-                          "zero dot equals" */
 }
 
 .calcDisplay{
     display: grid;
     padding: 5px 20px 5px 20px;
-    background-color: darksalmon;
-    border-radius: 20px;
+    background-color: #f8f8f8;
+    border-radius: 11px;
     margin-bottom: 20px;
     grid-template-columns: repeat(2 1fr);
     grid-template-rows: repeat(2 1fr);
 }
-.calcDisplay > p{
+.calcDisplay{
     text-align: right;
-
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    font-size: 1.0em;
 }
 
 
@@ -51,9 +58,25 @@
     justify-content: space-between;
 }
 
-/* #expressionMsg #result{
-    float: left;
+button{
+    display:inline-block;
+    padding:0.9em 0.5em;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:400;
+    color:white;
+    background-color: #616161;
+    text-align:center;
+    font-size: 20px;  
+    border-radius: 70px;  
 }
-#inputString{
-    float: right;
-} */
+
+button:hover{
+    color:#000000;
+    background-color:#FFFFFF;
+    transform: scale(1.1);
+}
+
